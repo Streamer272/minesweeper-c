@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
 cd build
-ninja
-./main
+cmake ..
+make
+./minesweeper
