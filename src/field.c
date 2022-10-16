@@ -14,7 +14,10 @@ Box* new_field(int size) {
 void display_field(Box* field, int size, int selected) {
     int side = (int) sqrt((double) size);
     int offset_row = floor((term_size.ws_col - side * 2 - 1) / 2);
+    int offset_col = floor((term_size.ws_row - side) / 2);
 
+    for (int i = 0; i < offset_col; i++)
+        printf("\n");
     for (int j = 0; j < side; j++) {
         for (int i = 0; i < offset_row; i++)
             printf(" ");
@@ -38,6 +41,8 @@ void display_field(Box* field, int size, int selected) {
             }
         }
     }
+    for (int i = 0; i < offset_col; i++)
+        printf("\n");
 }
 
 char get_box_value(Box* field, int index, int side) {
