@@ -8,4 +8,5 @@ add_executable(minesweeper
     src/field.h src/field.c
     src/term.h src/term.c)
 
+target_link_libraries(minesweeper PRIVATE m)
 install(TARGETS minesweeper DESTINATION /usr/local/bin)

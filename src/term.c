@@ -35,3 +35,32 @@ void term_setup() {
 void term_reset() {
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
+
+Action term_take_input() {
+    int input = getchar();
+    switch(input) {
+    case 'q':
+        printf("Are you sure you want to quit? (y/n) ");
+        if (getchar() != 'n')
+            exit(EXIT_SUCCESS);
+    case 'A':
+    case 'w':
+        return UP;
+    case 'C':
+    case 'd':
+        return RIGHT;
+    case 'B':
+    case 's':
+        return DOWN;
+    case 'D':
+    case 'a':
+        return LEFT;
+    case ' ':
+    case '\n':
+        return REVIELE;
+    case 'f':
+        return FLAG;
+    default:
+        return NOTHING;
+    }
+}
