@@ -1,6 +1,7 @@
 #include "field.h"
 #include <stdio.h>
 #include <math.h>
+#include "term.h"
 
 Box* new_field(int size) {
     Box* boxes = malloc(sizeof(Box) * size);
@@ -12,19 +13,29 @@ Box* new_field(int size) {
 
 void display_field(Box* field, int size, int selected) {
     int side = (int) sqrt((double) size);
+    int offset_row = floor((term_size.ws_col - side * 2 - 1) / 2);
+
     for (int j = 0; j < side; j++) {
+        for (int i = 0; i < offset_row; i++)
+            printf(" ");
+
         for (int i = 0; i < side; i++) {
+            if (j * side + i == selected)
+                printf("[");
+            else if (j * side + i - 1 == selected && i % side != 0)
+                printf("]");
+            else
+                printf("|");
+
             printf("%c", get_box_value(field, j * side + i, side));
-            if (i != side - 1) {
-                if (j * side + i + 1 == selected)
-                    printf("[");
-                else if (j * side + i == selected)
+
+            if (i == side - 1) {
+                if (j * side + i == selected)
                     printf("]");
                 else
                     printf("|");
-            }
-            else
                 printf("\n");
+            }
         }
     }
 }
