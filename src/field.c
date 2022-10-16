@@ -50,6 +50,9 @@ char get_box_value(Box* field, int index, int side) {
     case EMPTY:
     case BOMB:
         return ' ';
+    case FLAGGED_EMPTY:
+    case FLAGGED_BOMB:
+        return 'F';
     case REVIELED:
         int bombs_around = 0;
         if (index - side - 1 >= 0 && index % side != 0 && field[index - side - 1] == BOMB)
@@ -69,5 +72,7 @@ char get_box_value(Box* field, int index, int side) {
         if (index + side + 1 < pow(side, 2) && index + 1 % side != 0 && field[index + side + 1] == BOMB)
             bombs_around++;
         return 0x30 + bombs_around;
+    default:
+        return ' ';
     }
 }
